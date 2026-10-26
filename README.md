@@ -20,12 +20,13 @@ The website uses a restrained visual identity with dark backgrounds, warm neutra
 - Enlarged artwork previews.
 - Services section.
 - Designer introduction.
-- Mobile navigation menu.
+- Mobile navigation menu with Escape-to-close support.
 - WhatsApp contact link.
 - Email contact link.
 - Instagram profile link.
 - Basic page metadata for search engines and social sharing.
 - Reduced-motion support and keyboard focus indicators.
+- Keyboard navigation support for the artwork lightbox.
 
 ## Portfolio Artwork
 
@@ -49,13 +50,14 @@ Only publish artwork that the portfolio owner has permission to share.
 
 ## Services
 
-The website presents the following service categories:
+The website currently lists these service categories:
 
-- Promotional flyers
-- Social media graphics
-- Business advertisements
-- Event posters
-- Simple branding
+- Flyers and posters
+- Social media design
+- Business advertising
+- Document design
+
+Event and product promotions are represented in the portfolio samples.
 
 The portfolio owner should confirm that every advertised service accurately reflects what they currently offer.
 
@@ -90,7 +92,6 @@ bhigfhavee-portfolio/
     └── styles.css
 ```
 
-
 ## Run the Project Locally
 
 ### Requirements
@@ -118,7 +119,7 @@ npm install
 npm run dev
 ```
 
-Vite will display a local development URL in the terminal. Open that URL in your browser to view the website.
+Vite will display a local development URL. Open that URL in your browser to view the website.
 
 ### 4. Build for production
 
@@ -153,15 +154,15 @@ Vercel can automatically build and deploy new commits when the repository is con
 
 A successful GitHub commit does not, by itself, prove that a deployment succeeded. Check the Vercel deployment status and inspect the deployed website after significant changes.
 
-The live URL listed above should be treated as the intended portfolio address; verify its current availability and content before distributing it to prospective clients.
+The live URL listed above should be treated as the intended portfolio address. Verify its current availability and content before distributing it to prospective clients.
 
 ## Contact Information
 
 The portfolio provides the following contact methods:
 
-- **WhatsApp:** Use the contact link displayed on the website.
-- **Email:** Use the published portfolio email address.
-- **Instagram:** Use the linked design profile.
+- **WhatsApp:** +234 805 062 0968
+- **Email:** bhigfhavee@gmail.com
+- **Instagram:** @bhigfhave
 
 The portfolio owner should verify each destination before sharing the website with prospective clients.
 
@@ -169,15 +170,19 @@ To change contact details, update the relevant links in `src/main.jsx`.
 
 ## Before Publishing Changes
 
-Review the following checklist before considering a change complete:
+Review this checklist before considering a change complete:
 
 - [ ] The production build succeeds.
 - [ ] All five artwork images load correctly.
 - [ ] Artwork proportions are preserved.
 - [ ] The homepage and gallery look correct on mobile.
 - [ ] The mobile navigation opens and closes correctly.
+- [ ] Pressing Escape closes the mobile navigation and returns focus to its toggle.
 - [ ] Navigation links lead to the correct sections.
 - [ ] Enlarged artwork previews open and close correctly.
+- [ ] Escape closes an enlarged artwork preview.
+- [ ] Tab and Shift+Tab keep keyboard focus within an open preview.
+- [ ] Closing a preview restores focus to the control that opened it.
 - [ ] Keyboard focus indicators are visible.
 - [ ] WhatsApp opens the correct contact.
 - [ ] The email link opens the correct email address.
