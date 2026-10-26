@@ -73,33 +73,27 @@ const projects = [
 const services = [
   {
     number: '01',
-    title: 'Promotional Flyers',
+    title: 'Flyers & Posters',
     description:
-      'Visuals for offers, announcements, promotions and everyday business needs.',
+      'Designs for birthdays, events, business promotions and announcements.',
   },
   {
     number: '02',
-    title: 'Social Media Graphics',
+    title: 'Social Media Design',
     description:
-      'Graphics designed to communicate clearly across social platforms.',
+      'Promotional graphics for Instagram, Facebook and other social platforms.',
   },
   {
     number: '03',
-    title: 'Business Advertisements',
+    title: 'Business Advertising',
     description:
-      'Promotional artwork for businesses, products and services.',
+      'Visual promotions for businesses, products and services.',
   },
   {
     number: '04',
-    title: 'Event Posters',
+    title: 'Document Design',
     description:
-      'Event-focused designs for celebrations, gatherings and promotions.',
-  },
-  {
-    number: '05',
-    title: 'Simple Branding',
-    description:
-      'Foundational visual assets to help a brand maintain a consistent look.',
+      'CVs, presentations and other clean, professional documents.',
   },
 ];
 
@@ -107,9 +101,32 @@ function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeProject, setActiveProject] = useState(null);
 
+  const menuToggleRef = useRef(null);
+  const dialogRef = useRef(null);
   const closeButtonRef = useRef(null);
   const triggerRef = useRef(null);
 
+  // Allow Escape to close the mobile navigation.
+  useEffect(() => {
+    if (!menuOpen) return undefined;
+
+    const toggle = menuToggleRef.current;
+
+    function handleMenuKeyDown(event) {
+      if (event.key !== 'Escape') return;
+
+      setMenuOpen(false);
+      toggle?.focus();
+    }
+
+    document.addEventListener('keydown', handleMenuKeyDown);
+
+    return () => {
+      document.removeEventListener('keydown', handleMenuKeyDown);
+    };
+  }, [menuOpen]);
+
+  // Manage focus and keyboard navigation inside the artwork lightbox.
   useEffect(() => {
     if (!activeProject) return undefined;
 
@@ -122,15 +139,47 @@ function App() {
     function handleKeyDown(event) {
       if (event.key === 'Escape') {
         setActiveProject(null);
+        return;
       }
 
-      if (event.key === 'Tab') {
-        const closeButton = closeButtonRef.current;
+      if (event.key !== 'Tab') return;
 
-        if (closeButton && document.activeElement !== closeButton) {
-          event.preventDefault();
-          closeButton.focus();
-        }
+      const dialog = dialogRef.current;
+      if (!dialog) return;
+
+      const focusableElements = dialog.querySelectorAll(
+        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      );
+
+      const firstFocusable = focusableElements[0];
+      const lastFocusable =
+        focusableElements[focusableElements.length - 1];
+
+      if (!firstFocusable || !lastFocusable) {
+        event.preventDefault();
+        return;
+      }
+
+      const activeElement = document.activeElement;
+
+      // Recover focus if it somehow moves outside the dialog.
+      if (!dialog.contains(activeElement)) {
+        event.preventDefault();
+        (event.shiftKey ? lastFocusable : firstFocusable).focus();
+        return;
+      }
+
+      // Shift+Tab from the first control wraps to the last.
+      if (event.shiftKey && activeElement === firstFocusable) {
+        event.preventDefault();
+        lastFocusable.focus();
+        return;
+      }
+
+      // Tab from the last control wraps to the first.
+      if (!event.shiftKey && activeElement === lastFocusable) {
+        event.preventDefault();
+        firstFocusable.focus();
       }
     }
 
@@ -153,6 +202,10 @@ function App() {
 
   function closeMenu() {
     setMenuOpen(false);
+  }
+
+  function closeLightbox() {
+    setActiveProject(null);
   }
 
   const featuredProject = projects[2];
@@ -182,6 +235,7 @@ function App() {
           </a>
 
           <button
+            ref={menuToggleRef}
             className="nav-toggle"
             type="button"
             aria-label={menuOpen ? 'Close navigation' : 'Open navigation'}
@@ -226,7 +280,7 @@ function App() {
           <div className="shell hero-grid">
             <div className="hero-copy">
               <p className="eyebrow eyebrow-light">
-                <span className="eyebrow-dot" />
+                <span className="eyebrow-dot" aria-hidden="true" />
                 Graphic design · Nigeria
               </p>
 
@@ -433,10 +487,7 @@ function App() {
               ))}
             </div>
 
-            <a
-              className="button button-dark"
-              href="#contact"
-            >
+            <a className="button button-dark" href="#contact">
               Discuss your project
               <ArrowRight size={17} aria-hidden="true" />
             </a>
@@ -464,9 +515,9 @@ function App() {
               </p>
 
               <p>
-                The portfolio covers promotional flyers, social media
-                graphics, event artwork, business advertisements and
-                product promotions.
+                Services include promotional flyers, social media graphics,
+                business advertising and document design, alongside event
+                and product promotions.
               </p>
 
               <p>
@@ -591,14 +642,15 @@ function App() {
 
       {activeProject && (
         <div
+          ref={dialogRef}
           className="lightbox"
           role="dialog"
           aria-modal="true"
           aria-labelledby="lightbox-title"
           aria-describedby="lightbox-description"
-          onMouseDown={(event) => {
+          onClick={(event) => {
             if (event.target === event.currentTarget) {
-              setActiveProject(null);
+              closeLightbox();
             }
           }}
         >
@@ -607,7 +659,7 @@ function App() {
               className="lightbox-close"
               type="button"
               ref={closeButtonRef}
-              onClick={() => setActiveProject(null)}
+              onClick={closeLightbox}
               aria-label="Close enlarged artwork"
             >
               <X size={22} aria-hidden="true" />
@@ -629,7 +681,7 @@ function App() {
               <a
                 className="button button-dark"
                 href="#contact"
-                onClick={() => setActiveProject(null)}
+                onClick={closeLightbox}
               >
                 Discuss a design
                 <ArrowUpRight size={16} aria-hidden="true" />
