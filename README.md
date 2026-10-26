@@ -87,13 +87,9 @@ bhigfhavee-portfolio/
 ├── skincare-ad.jpg
 ├── styles.css
 └── src/
-    ├── main.jsx
-    └── styles.css
+    └── main.jsx
 ```
 
-The root-level `styles.css` is retained only if it is still present in the repository. The React application should import the stylesheet at `src/styles.css`.
-
-After the revamp cleanup is complete, remove the unused root-level stylesheet to avoid duplicate styling files.
 
 ## Run the Project Locally
 
