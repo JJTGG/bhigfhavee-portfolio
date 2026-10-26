@@ -85,9 +85,9 @@ bhigfhavee-portfolio/
 ├── fashion-flyer.jpg
 ├── event-flyer.jpg
 ├── skincare-ad.jpg
-├── styles.css
 └── src/
-    └── main.jsx
+    ├── main.jsx
+    └── styles.css
 ```
 
 
