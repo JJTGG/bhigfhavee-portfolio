@@ -1,0 +1,111 @@
+/* General styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #0f172a;
+    color: #ffffff;
+    line-height: 1.6;
+}
+
+/* Header */
+header {
+    background-color: #1e293b;
+    padding: 20px;
+    text-align: center;
+}
+
+header h1 {
+    color: #38bdf8;
+    margin-bottom: 10px;
+}
+
+/* Navigation */
+nav a {
+    color: #ffffff;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+nav a:hover {
+    color: #38bdf8;
+}
+
+/* Main sections */
+section {
+    padding: 60px 20px;
+    max-width: 1000px;
+    margin: auto;
+}
+
+h2 {
+    color: #38bdf8;
+    margin-bottom: 20px;
+}
+
+/* Introduction */
+#home {
+    text-align: center;
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
+#home h2 {
+    font-size: 36px;
+}
+
+/* Buttons */
+button,
+.btn {
+    display: inline-block;
+    background-color: #38bdf8;
+    color: #0f172a;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+/* Project cards */
+.project {
+    background-color: #1e293b;
+    padding: 20px;
+    margin: 15px 0;
+    border-radius: 10px;
+    border: 1px solid #334155;
+}
+
+/* Contact section */
+#contact {
+    text-align: center;
+}
+
+/* Footer */
+footer {
+    background-color: #1e293b;
+    padding: 20px;
+    text-align: center;
+    color: #cbd5e1;
+}
+
+/* Mobile-friendly design */
+@media (max-width: 600px) {
+    nav a {
+        display: inline-block;
+        margin: 5px;
+    }
+
+    #home h2 {
+        font-size: 28px;
+    }
+
+    section {
+        padding: 40px 15px;
+    }
+}
